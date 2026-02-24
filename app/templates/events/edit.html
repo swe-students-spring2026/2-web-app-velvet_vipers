@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Event</h2>
+<p><strong>TODO:</strong> Implement edit event form UI.</p>
+
+<form method="post">
+  <label>Title <input name="title" value="{{ event.title }}" required></label><br />
+  <label>Location <input name="location" value="{{ event.location }}" required></label><br />
+  <label>Date <input name="date" value="{{ event.date }}" required></label><br />
+  <label>Tags <input name="tags" value="{{ event.tags|join(', ') }}"></label><br />
+  <label>Description <textarea name="description">{{ event.description }}</textarea></label><br />
+  <button type="submit">Save</button>
+</form>
+{% endblock %}
