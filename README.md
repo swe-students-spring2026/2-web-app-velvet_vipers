@@ -4,11 +4,39 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+A mobile-first web app that helps students quickly post, discover, and manage campus events and study groups through simple search and CRUD workflows.
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+As a visitor, I want to view a list of upcoming events so that I can quickly browse what’s happening.
+
+
+As a visitor, I want to open an event detail page so that I can see time, location, and full description.
+
+
+As a visitor, I want to search events by keyword so that I can find relevant events faster.
+
+
+As a visitor, I want to filter/search events by tag or location so that I can narrow results to my interests.
+
+
+As a student organizer, I want to create a new event so that I can invite others to join.
+
+
+As a student organizer, I want to edit an event I posted so that I can update changes like time or location.
+
+
+As a student organizer, I want to delete an event I posted so that outdated or canceled events are removed.
+
+
+As a student organizer, I want to see a confirmation before deleting so that I don’t remove events by accident.
+
+
+As a user, I want to see clear form validation errors so that I know how to fix missing or invalid inputs.
+
+
+As a user, I want the app to be easy to use on a phone screen so that I can operate it comfortably on mobile.
+
 
 ## Steps necessary to run the software
 
