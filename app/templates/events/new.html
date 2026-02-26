@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create Event</h2>
+<p><strong>TODO:</strong> Implement create event form UI.</p>
+
+<!-- Minimal working form so backend can still be tested -->
+<form method="post">
+  <label>Title <input name="title" required></label><br />
+  <label>Location <input name="location" required></label><br />
+  <label>Date <input name="date" required></label><br />
+  <label>Tags <input name="tags" placeholder="comma,separated"></label><br />
+  <label>Description <textarea name="description"></textarea></label><br />
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

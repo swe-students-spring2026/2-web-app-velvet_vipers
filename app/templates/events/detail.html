@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Event Detail</h2>
+<p><strong>TODO:</strong> Implement event detail UI.</p>
+
+<!-- Placeholder output so the page is still testable -->
+{% if event %}
+<ul>
+  <li>Title: {{ event.title }}</li>
+  <li>Location: {{ event.location }}</li>
+  <li>Date: {{ event.date }}</li>
+</ul>
+{% endif %}
+{% endblock %}
