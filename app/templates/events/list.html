@@ -1,8 +1,57 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Event List</h2>
-<p><strong>TODO:</strong> Implement event list UI.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events - NYU Event Finder</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
 
-<!-- This placeholder renders something so the route works -->
-<p>Events passed from backend: {{ events|length }}</p>
-{% endblock %}
+<header class="navbar">
+  <div class="container nav-content">
+    <div class="logo">
+      <span class="icon">📅</span>
+      <h1>NYU Event Finder</h1>
+    </div>
+    <nav>
+      <a href="list.html" class="nav-btn active">Events</a>
+      <a href="new.html" class="nav-btn">Create Event</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+<h2>Discover Events</h2>
+
+<div class="card search-box">
+  <h3>Search Events</h3>
+
+  <div class="grid-3">
+    <input type="text" placeholder="Keyword">
+    <input type="text" placeholder="Location">
+    <input type="text" placeholder="Tag">
+  </div>
+</div>
+
+<h3>Events Found</h3>
+
+<div class="event-grid">
+
+  <div class="event-card">
+    <h3>Computer Science Study Group</h3>
+    <p>📅 Tue, Apr 2 • 6:00 PM</p>
+    <p>📍 Bobst Library</p>
+    <p>Reviewing algorithms before midterms.</p>
+
+    <div class="tags">
+      <span class="tag">study</span>
+      <span class="tag">cs</span>
+    </div>
+  </div>
+
+</div>
+
+</main>
+</body>
+</html>
