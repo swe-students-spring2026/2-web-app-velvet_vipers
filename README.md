@@ -71,4 +71,4 @@ As a user, I want the app to be easy to use on a phone screen so that I can oper
 ## Task boards
 
 Link for Sprint 1: https://github.com/orgs/swe-students-spring2026/projects/36
-Link for Sprint 2: 
+Link for Sprint 2: https://github.com/orgs/swe-students-spring2026/projects/69
