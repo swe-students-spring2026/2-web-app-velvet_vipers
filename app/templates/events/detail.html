@@ -1,14 +1,46 @@
 {% extends "base.html" %}
-{% block content %}
-<h2>Event Detail</h2>
-<p><strong>TODO:</strong> Implement event detail UI.</p>
 
-<!-- Placeholder output so the page is still testable -->
-{% if event %}
-<ul>
-  <li>Title: {{ event.title }}</li>
-  <li>Location: {{ event.location }}</li>
-  <li>Date: {{ event.date }}</li>
-</ul>
-{% endif %}
+{% block title %}{{ event.title }} — Campus Event Finder{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{{ event.title }}</h1>
+</div>
+
+<div class="card">
+  <div class="detail-row">
+    <div class="detail-label">Location</div>
+    <div class="detail-value"> {{ event.location }}</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Date &amp; Time</div>
+    <div class="detail-value"> {{ event.date | format_date }}</div>
+  </div>
+
+  {% if event.description %}
+  <div class="detail-row">
+    <div class="detail-label">Description</div>
+    <div class="detail-value">{{ event.description }}</div>
+  </div>
+  {% endif %}
+
+  {% if event.tags %}
+  <div class="detail-row">
+    <div class="detail-label">Tags</div>
+    <div class="tags">
+      {% for tag in event.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="action-row">
+  <a href="{{ url_for('main.event_edit', id=event._id) }}" class="btn btn-secondary">Edit</a>
+  <a href="{{ url_for('main.event_delete', id=event._id) }}" class="btn btn-danger">Delete</a>
+</div>
+
+<a href="{{ url_for('main.event_list') }}" class="btn btn-ghost btn-block" style="margin-top:8px;">← Back to Events</a>
 {% endblock %}
