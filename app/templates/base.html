@@ -1,23 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Campus Events</title>
-  </head>
-  <body>
-    <header>
-      <h1>Campus Events</h1>
-      <nav>
-        <a href="/events">Events</a> |
-        <a href="/search">Search</a> |
-        <a href="/events/new">Create Event</a>
-      </nav>
-      <hr />
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <title>NYU Event Finder</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
 
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-  </body>
+<header class="navbar">
+  <div class="container nav-content">
+    <div class="logo">
+      <span class="icon">📅</span>
+      <div>
+        <h1>NYU Event Finder</h1>
+        <p>Campus Events & Study Groups</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="list.html" class="nav-btn">Events</a>
+      <a href="new.html" class="nav-btn primary">Create Event</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Page content goes here -->
+</main>
+
+</body>
 </html>
