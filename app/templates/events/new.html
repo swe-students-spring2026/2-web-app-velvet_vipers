@@ -1,15 +1,49 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Create Event</h2>
-<p><strong>TODO:</strong> Implement create event form UI.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Event</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
 
-<!-- Minimal working form so backend can still be tested -->
-<form method="post">
-  <label>Title <input name="title" required></label><br />
-  <label>Location <input name="location" required></label><br />
-  <label>Date <input name="date" required></label><br />
-  <label>Tags <input name="tags" placeholder="comma,separated"></label><br />
-  <label>Description <textarea name="description"></textarea></label><br />
-  <button type="submit">Submit</button>
-</form>
-{% endblock %}
+<header class="navbar">
+  <div class="container nav-content">
+    <h1>Create Event</h1>
+  </div>
+</header>
+
+<main class="container">
+
+<div class="card form-card">
+  <h2>Create New Event</h2>
+
+  <form>
+
+    <label>Event Title</label>
+    <input type="text" required>
+
+    <label>Location</label>
+    <input type="text" required>
+
+    <label>Date & Time</label>
+    <input type="datetime-local" required>
+
+    <label>Tags</label>
+    <input type="text">
+
+    <label>Description</label>
+    <textarea rows="5"></textarea>
+
+    <div class="form-actions">
+      <button class="primary-btn">Create Event</button>
+      <a href="list.html" class="secondary-btn">Cancel</a>
+    </div>
+
+  </form>
+
+</div>
+
+</main>
+</body>
+</html>

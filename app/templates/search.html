@@ -1,16 +1,31 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Search</h2>
-<p><strong>TODO:</strong> Implement search UI.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Events</title>
+  <link rel="stylesheet" href="/static/styles.csss">
+</head>
+<body>
 
-<form method="get">
-  <label>Query <input name="q" value="{{ q }}"></label><br />
-  <label>Location <input name="location" value="{{ location }}"></label><br />
-  <label>Tag <input name="tag" value="{{ tag }}"></label><br />
-  <button type="submit">Search</button>
-</form>
+<header class="navbar">
+  <div class="container nav-content">
+    <h1>Search Events</h1>
+  </div>
+</header>
 
-{% if searched %}
-  <p>Results: {{ events|length }}</p>
-{% endif %}
-{% endblock %}
+<main class="container">
+
+<div class="card">
+  <h2>Search</h2>
+
+  <form class="grid-3">
+    <input type="text" placeholder="Keyword">
+    <input type="text" placeholder="Location">
+    <input type="text" placeholder="Tag">
+    <button class="primary-btn">Search</button>
+  </form>
+</div>
+
+</main>
+</body>
+</html>
