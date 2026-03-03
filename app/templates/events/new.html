@@ -1,15 +1,46 @@
 {% extends "base.html" %}
-{% block content %}
-<h2>Create Event</h2>
-<p><strong>TODO:</strong> Implement create event form UI.</p>
 
-<!-- Minimal working form so backend can still be tested -->
-<form method="post">
-  <label>Title <input name="title" required></label><br />
-  <label>Location <input name="location" required></label><br />
-  <label>Date <input name="date" required></label><br />
-  <label>Tags <input name="tags" placeholder="comma,separated"></label><br />
-  <label>Description <textarea name="description"></textarea></label><br />
-  <button type="submit">Submit</button>
-</form>
+{% block title %}New Event — Campus Event Finder{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Create Event</h1>
+</div>
+
+<div class="card">
+  <form method="POST" action="{{ url_for('main.event_new') }}">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input type="text" id="title" name="title" required
+             placeholder="e.g. Math Study Session" />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location *</label>
+      <input type="text" id="location" name="location" required
+             placeholder="e.g. Bobst Library, Room 302" />
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date &amp; Time *</label>
+      <input type="datetime-local" id="date" name="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" name="tags"
+             placeholder="e.g. math, study, free-food" />
+      <small class="hint">Separate tags with commas</small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description"
+                placeholder="Tell students what to expect..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Create Event</button>
+    <a href="{{ url_for('main.event_list') }}" class="btn btn-ghost btn-block">Cancel</a>
+  </form>
+</div>
 {% endblock %}

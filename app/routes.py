@@ -34,7 +34,7 @@ def event_detail(id):
     return render_template("events/detail.html", event=event)
 
 
-# ── Screen 3: Create Event ──────────────────────────────────────────────────
+# Screen 3: Create Event
 
 @main.route("/events/new", methods=["GET", "POST"])
 def event_new():

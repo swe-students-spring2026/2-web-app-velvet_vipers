@@ -1,8 +1,37 @@
 {% extends "base.html" %}
-{% block content %}
-<h2>Event List</h2>
-<p><strong>TODO:</strong> Implement event list UI.</p>
 
-<!-- This placeholder renders something so the route works -->
-<p>Events passed from backend: {{ events|length }}</p>
+{% block title %}Events — Campus Event Finder{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Upcoming Events</h1>
+</div>
+
+{% if events %}
+  {% for event in events %}
+  <a href="{{ url_for('main.event_detail', id=event._id) }}" class="card card-link">
+    <div class="card-title">{{ event.title }}</div>
+    <div class="card-meta">
+      <span> {{ event.location }}</span>
+      <span> {{ event.date | format_date }}</span>
+    </div>
+    {% if event.tags %}
+    <div class="tags">
+      {% for tag in event.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </a>
+  {% endfor %}
+{% else %}
+  <div class="empty">
+    <p>No events yet. Be the first to create one!</p>
+    <a href="{{ url_for('main.event_new') }}" class="btn btn-primary" style="margin-top:16px;">Create Event</a>
+  </div>
+{% endif %}
+
+<div style="margin-top:16px;">
+  <a href="{{ url_for('main.event_new') }}" class="btn btn-primary btn-block">+ Add Event</a>
+</div>
 {% endblock %}
