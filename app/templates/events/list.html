@@ -1,57 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Events - NYU Event Finder</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-<header class="navbar">
-  <div class="container nav-content">
-    <div class="logo">
-      <span class="icon">📅</span>
-      <h1>NYU Event Finder</h1>
-    </div>
-    <nav>
-      <a href="list.html" class="nav-btn active">Events</a>
-      <a href="new.html" class="nav-btn">Create Event</a>
-    </nav>
-  </div>
-</header>
+{% block title %}Events — Campus Event Finder{% endblock %}
 
-<main class="container">
-
-<h2>Discover Events</h2>
-
-<div class="card search-box">
-  <h3>Search Events</h3>
-
-  <div class="grid-3">
-    <input type="text" placeholder="Keyword">
-    <input type="text" placeholder="Location">
-    <input type="text" placeholder="Tag">
-  </div>
+{% block content %}
+<div class="page-header">
+  <h1>Upcoming Events</h1>
 </div>
 
-<h3>Events Found</h3>
-
-<div class="event-grid">
-
-  <div class="event-card">
-    <h3>Computer Science Study Group</h3>
-    <p>📅 Tue, Apr 2 • 6:00 PM</p>
-    <p>📍 Bobst Library</p>
-    <p>Reviewing algorithms before midterms.</p>
-
+{% if events %}
+  {% for event in events %}
+  <a href="{{ url_for('main.event_detail', id=event._id) }}" class="card card-link">
+    <div class="card-title">{{ event.title }}</div>
+    <div class="card-meta">
+      <span> {{ event.location }}</span>
+      <span> {{ event.date | format_date }}</span>
+    </div>
+    {% if event.tags %}
     <div class="tags">
-      <span class="tag">study</span>
-      <span class="tag">cs</span>
+      {% for tag in event.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
     </div>
+    {% endif %}
+  </a>
+  {% endfor %}
+{% else %}
+  <div class="empty">
+    <p>No events yet. Be the first to create one!</p>
+    <a href="{{ url_for('main.event_new') }}" class="btn btn-primary" style="margin-top:16px;">Create Event</a>
   </div>
+{% endif %}
 
+<div style="margin-top:16px;">
+  <a href="{{ url_for('main.event_new') }}" class="btn btn-primary btn-block">+ Add Event</a>
 </div>
-
-</main>
-</body>
-</html>
+{% endblock %}

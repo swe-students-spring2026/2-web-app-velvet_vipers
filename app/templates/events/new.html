@@ -1,49 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Create Event</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-<header class="navbar">
-  <div class="container nav-content">
-    <h1>Create Event</h1>
-  </div>
-</header>
+{% block title %}New Event — Campus Event Finder{% endblock %}
 
-<main class="container">
-
-<div class="card form-card">
-  <h2>Create New Event</h2>
-
-  <form>
-
-    <label>Event Title</label>
-    <input type="text" required>
-
-    <label>Location</label>
-    <input type="text" required>
-
-    <label>Date & Time</label>
-    <input type="datetime-local" required>
-
-    <label>Tags</label>
-    <input type="text">
-
-    <label>Description</label>
-    <textarea rows="5"></textarea>
-
-    <div class="form-actions">
-      <button class="primary-btn">Create Event</button>
-      <a href="list.html" class="secondary-btn">Cancel</a>
-    </div>
-
-  </form>
-
+{% block content %}
+<div class="page-header">
+  <h1>Create Event</h1>
 </div>
 
-</main>
-</body>
-</html>
+<div class="card">
+  <form method="POST" action="{{ url_for('main.event_new') }}">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input type="text" id="title" name="title" required
+             placeholder="e.g. Math Study Session" />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location *</label>
+      <input type="text" id="location" name="location" required
+             placeholder="e.g. Bobst Library, Room 302" />
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date &amp; Time *</label>
+      <input type="datetime-local" id="date" name="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" name="tags"
+             placeholder="e.g. math, study, free-food" />
+      <small class="hint">Separate tags with commas</small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description"
+                placeholder="Tell students what to expect..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Create Event</button>
+    <a href="{{ url_for('main.event_list') }}" class="btn btn-ghost btn-block">Cancel</a>
+  </form>
+</div>
+{% endblock %}
