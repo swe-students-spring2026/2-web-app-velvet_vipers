@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
+from flask_login import login_required
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 
@@ -14,8 +15,27 @@ def index():
 
 @main.route("/events")
 def event_list():
-    events = list(current_app.db.events.find().sort("date", 1))
-    return render_template("events/list.html", events=events)
+    q = request.args.get("q", "").strip()
+    location = request.args.get("location", "").strip()
+    tag = request.args.get("tag", "").strip()
+
+    if q or location or tag:
+        and_filters = []
+        if q:
+            and_filters.append({"$or": [
+                {"title": {"$regex": q, "$options": "i"}},
+                {"description": {"$regex": q, "$options": "i"}},
+            ]})
+        if location:
+            and_filters.append({"location": {"$regex": location, "$options": "i"}})
+        if tag:
+            and_filters.append({"tags": {"$elemMatch": {"$regex": tag, "$options": "i"}}})
+        query = {"$and": and_filters}
+    else:
+        query = {}
+
+    events = list(current_app.db.events.find(query).sort("date", 1))
+    return render_template("events/list.html", events=events, q=q, location=location, tag=tag)
 
 
 # Screen 2: Event Detail
@@ -37,6 +57,7 @@ def event_detail(id):
 # Screen 3: Create Event
 
 @main.route("/events/new", methods=["GET", "POST"])
+@login_required
 def event_new():
     if request.method == "POST":
         tags_raw = request.form.get("tags", "")
@@ -56,6 +77,7 @@ def event_new():
 # Screen 4: Edit Event
 
 @main.route("/events/<id>/edit", methods=["GET", "POST"])
+@login_required
 def event_edit(id):
     try:
         oid = ObjectId(id)
@@ -86,6 +108,7 @@ def event_edit(id):
 # Screen 5: Delete Confirmation + Delete
 
 @main.route("/events/<id>/delete", methods=["GET", "POST"])
+@login_required
 def event_delete(id):
     try:
         oid = ObjectId(id)

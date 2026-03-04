@@ -2,6 +2,11 @@ import os
 from flask import Flask
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from flask_login import LoginManager
+from bson.objectid import ObjectId
+
+login_manager = LoginManager()
+
 
 def create_app():
     load_dotenv()
@@ -14,8 +19,17 @@ def create_app():
 
     client = MongoClient(mongo_uri)
     app.db = client[db_name]
-
     app.mongo_client = client
+
+    login_manager.login_view = "auth.login"
+    login_manager.login_message = "Please log in to access this page."
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        from app.models import User
+        doc = app.db.users.find_one({"_id": ObjectId(user_id)})
+        return User(doc) if doc else None
 
     @app.template_filter("format_date")
     def format_date(value):
@@ -28,5 +42,8 @@ def create_app():
 
     from app.routes import main
     app.register_blueprint(main)
+
+    from app.auth import auth
+    app.register_blueprint(auth)
 
     return app

@@ -2,30 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NYU Event Finder</title>
+  <title>{% block title %}NYU Event Finder{% endblock %}</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 
 <header class="navbar">
   <div class="container nav-content">
-    <div class="logo">
-      <span class="icon">📅</span>
+    <a href="{{ url_for('main.event_list') }}" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       <div>
         <h1>NYU Event Finder</h1>
         <p>Campus Events & Study Groups</p>
       </div>
-    </div>
+    </a>
 
     <nav>
-      <a href="list.html" class="nav-btn">Events</a>
-      <a href="new.html" class="nav-btn primary">Create Event</a>
+      <a href="{{ url_for('main.event_list') }}" class="nav-btn nav-btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Events
+      </a>
+      <a href="{{ url_for('main.event_new') }}" class="nav-btn nav-btn-create">
+        <span style="font-size:1.1rem; font-weight:300;">+</span> Create Event
+      </a>
+      {% if current_user.is_authenticated %}
+        <span class="nav-username">{{ current_user.username }}</span>
+        <a href="{{ url_for('auth.logout') }}" class="nav-btn nav-btn-create">Log Out</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="nav-btn nav-btn-create">Log In</a>
+        <a href="{{ url_for('auth.register') }}" class="nav-btn nav-btn-search">Register</a>
+      {% endif %}
     </nav>
   </div>
 </header>
 
 <main class="container">
-  <!-- Page content goes here -->
+  {% block content %}{% endblock %}
 </main>
 
 </body>
