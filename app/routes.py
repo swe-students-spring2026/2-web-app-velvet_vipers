@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for, curren
 from flask_login import login_required
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
+from flask_login import login_user, logout_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+from .models import User
 
 main = Blueprint("main", __name__)
 
@@ -10,6 +13,49 @@ main = Blueprint("main", __name__)
 def index():
     return redirect(url_for("main.event_list"))
 
+@main.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        email = request.form["email"].strip().lower()
+        password = request.form["password"]
+
+        if current_app.db.users.find_one({"email": email}):
+            return render_template("auth/register.html", error="Email already registered.")
+
+        doc = {
+            "email": email,
+            "password_hash": generate_password_hash(password),
+            "plan": "free",
+        }
+        res = current_app.db.users.insert_one(doc)
+        user = User({**doc, "_id": res.inserted_id})
+        login_user(user)
+        return redirect(url_for("main.event_list"))
+
+    return render_template("auth/register.html")
+
+
+@main.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"].strip().lower()
+        password = request.form["password"]
+
+        doc = current_app.db.users.find_one({"email": email})
+        if not doc or not check_password_hash(doc["password_hash"], password):
+            return render_template("auth/login.html", error="Invalid email or password.")
+
+        login_user(User(doc))
+        return redirect(url_for("main.event_list"))
+
+    return render_template("auth/login.html")
+
+
+@main.route("/logout", methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.login"))
 
 # Screen 1: Event List
 

@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 
 login_manager = LoginManager()
 
+from .models import User
 
 def create_app():
     load_dotenv()
