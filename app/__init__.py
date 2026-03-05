@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from flask_login import LoginManager
+from .models import User
 
 def create_app():
     load_dotenv()
@@ -14,6 +16,14 @@ def create_app():
 
     client = MongoClient(mongo_uri)
     app.db = client[db_name]
+
+    login_manager = LoginManager()
+    login_manager.login_view = "main.login"
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.from_id(app.db, user_id)
 
     app.mongo_client = client
 
