@@ -1,16 +1,34 @@
-<!doctype html>
-<html>
-  <body>
-    <h1>Login</h1>
-    {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
-    <form method="post">
-      <label>Email</label><br />
-      <input name="email" type="email" required /><br /><br />
-      <label>Password</label><br />
-      <input name="password" type="password" required /><br /><br />
-      <button type="submit">Login</button>
+{% extends "base.html" %}
+
+{% block title %}Log In — NYU Event Finder{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="card auth-card">
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-sub">Log in to your NYU Event Finder account</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('auth.login') }}">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@nyu.edu" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log In</button>
     </form>
 
-    <p>No account? <a href="{{ url_for('main.register') }}">Register</a></p>
-  </body>
-</html>
+    <p class="auth-footer">
+      Don't have an account? <a href="{{ url_for('auth.register') }}">Register</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

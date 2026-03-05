@@ -1,37 +1,88 @@
 {% extends "base.html" %}
 
-{% block title %}Events — Campus Event Finder{% endblock %}
+{% block title %}Discover Events — NYU Event Finder{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <h1>Upcoming Events</h1>
+  <h1>Discover Events</h1>
+</div>
+
+<div class="card search-card">
+  <div class="search-card-header">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <div>
+      <h2 class="search-card-title">Search Events</h2>
+      <p class="search-card-sub">Find events by keyword, location, or tag</p>
+    </div>
+  </div>
+  <form method="GET" action="{{ url_for('main.event_list') }}" class="search-form" id="search-form">
+    <div class="search-fields">
+      <div class="search-field">
+        <label for="q">Keyword</label>
+        <input type="text" id="q" name="q" placeholder="Search title or description..." value="{{ q }}">
+      </div>
+      <div class="search-field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Building or room..." value="{{ location }}">
+      </div>
+      <div class="search-field">
+        <label for="tag">Tag</label>
+        <input type="text" id="tag" name="tag" placeholder="Filter by tag..." value="{{ tag }}">
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="results-header">
+  <h2>{{ events|length }} Event{{ 's' if events|length != 1 else '' }} Found</h2>
 </div>
 
 {% if events %}
+<div class="event-grid">
   {% for event in events %}
-  <a href="{{ url_for('main.event_detail', id=event._id) }}" class="card card-link">
-    <div class="card-title">{{ event.title }}</div>
-    <div class="card-meta">
-      <span> {{ event.location }}</span>
-      <span> {{ event.date | format_date }}</span>
+  <a href="{{ url_for('main.event_detail', id=event._id) }}" class="event-card card-link">
+    <h3 class="event-title">{{ event.title }}</h3>
+    <div class="event-meta">
+      <span class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        {{ event.date | format_date }}
+      </span>
+      <span class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        {{ event.location }}
+      </span>
     </div>
+    {% if event.description %}
+    <p class="event-desc">{{ event.description }}</p>
+    {% endif %}
     {% if event.tags %}
     <div class="tags">
-      {% for tag in event.tags %}
-      <span class="tag">{{ tag }}</span>
+      {% for t in event.tags %}
+      <span class="tag">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        {{ t }}
+      </span>
       {% endfor %}
     </div>
     {% endif %}
   </a>
   {% endfor %}
+</div>
 {% else %}
-  <div class="empty">
-    <p>No events yet. Be the first to create one!</p>
-    <a href="{{ url_for('main.event_new') }}" class="btn btn-primary" style="margin-top:16px;">Create Event</a>
-  </div>
+<div class="empty">
+  <p>No events found. Try adjusting your search or be the first to create one!</p>
+  <a href="{{ url_for('main.event_new') }}" class="btn btn-primary" style="margin-top:16px;">Create Event</a>
+</div>
 {% endif %}
 
-<div style="margin-top:16px;">
-  <a href="{{ url_for('main.event_new') }}" class="btn btn-primary btn-block">+ Add Event</a>
-</div>
+<script>
+  const form = document.getElementById('search-form');
+  let timer;
+  form.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => form.submit(), 400);
+    });
+  });
+</script>
 {% endblock %}
