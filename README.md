@@ -20,6 +20,8 @@ As a visitor, I want to search events by keyword so that I can find relevant eve
 
 As a visitor, I want to filter/search events by tag or location so that I can narrow results to my interests.
 
+As a visitor, I want to sort events by date (soonest first) so that I can see what’s coming up next.
+
 As a student organizer, I want to create a new event so that I can invite others to join.
 
 As a student organizer, I want to edit an event I posted so that I can update changes like time or location.

@@ -11,7 +11,7 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def index():
-    return redirect(url_for("main.event_list"))
+    return redirect(url_for("main.event_list")) #Set events page as root
 
 @main.route("/register", methods=["GET", "POST"])
 def register():
@@ -80,7 +80,7 @@ def event_list():
     else:
         query = {}
 
-    events = list(current_app.db.events.find(query).sort("date", 1))
+    events = list(current_app.db.events.find(query).sort("date", 1)) # Query events sorted by date ascending (earliest first)
     return render_template("events/list.html", events=events, q=q, location=location, tag=tag)
 
 
@@ -91,7 +91,7 @@ def event_detail(id):
     try:
         oid = ObjectId(id)
     except InvalidId:
-        return render_template("404.html"), 404
+        return render_template("404.html"), 404 #For detail, delete, edit, id validation is needed
 
     event = current_app.db.events.find_one({"_id": oid})
     if event is None:
