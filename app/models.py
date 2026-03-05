@@ -1,6 +1,7 @@
+from flask_login import UserMixin
 from bson.objectid import ObjectId
 
-class User:
+class User(UserMixin):
     def __init__(self, doc):
         self.id = str(doc["_id"])
         self.email = doc["email"]
