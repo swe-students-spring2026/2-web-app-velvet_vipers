@@ -26,11 +26,11 @@
         <span style="font-size:1.1rem; font-weight:300;">+</span> Create Event
       </a>
       {% if current_user.is_authenticated %}
-        <span class="nav-username">{{ current_user.username }}</span>
+        <span class="nav-username">{{ current_user.email }}</span>
         <a href="{{ url_for('auth.logout') }}" class="nav-btn nav-btn-create">Log Out</a>
       {% else %}
-        <a href="{{ url_for('auth.login') }}" class="nav-btn nav-btn-create">Log In</a>
-        <a href="{{ url_for('auth.register') }}" class="nav-btn nav-btn-search">Register</a>
+        <a href="{{ url_for('main.login') }}" class="nav-btn nav-btn-create">Log In</a>
+        <a href="{{ url_for('main.register') }}" class="nav-btn nav-btn-search">Register</a>
       {% endif %}
     </nav>
   </div>
