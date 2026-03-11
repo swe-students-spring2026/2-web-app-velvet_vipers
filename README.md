@@ -76,11 +76,7 @@ cp env.example .env
 
 Edit `.env` and set your MongoDB connection info:
 
-```env
-MONGODB_URI=mongodb://<host>:<port>/
-DB_NAME=<database_name>
-SECRET_KEY=<random_secret_key>
-```
+
 
 **Notes**
 
@@ -88,7 +84,7 @@ SECRET_KEY=<random_secret_key>
 * `DB_NAME` is the name of the database used by the application
 * `SECRET_KEY` is used by Flask for session security
 
-Do **not commit the `.env` file** to version control.
+
 
 ---
 
