@@ -77,9 +77,9 @@ cp env.example .env
 Edit `.env` and set your MongoDB connection info:
 
 ```env
-MONGODB_URI=mongodb://localhost:27017/
-DB_NAME=campus_events_db
-SECRET_KEY=your-secret-key
+MONGODB_URI=mongodb://<host>:<port>/
+DB_NAME=<database_name>
+SECRET_KEY=<random_secret_key>
 ```
 
 **Notes**
